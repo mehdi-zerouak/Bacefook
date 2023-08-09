@@ -1,0 +1,13 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="profile-picture">
+        <img src="{{profile.pfp.url}}" alt="Profile Picture">
+    </div>
+    <div class="profile-details">
+        <h2 class="username">{{profile.user.username}}</h2>
+        <p class="bio">{{profile.bio}}</p>
+    </div>
+</div>
+{% endblock %}

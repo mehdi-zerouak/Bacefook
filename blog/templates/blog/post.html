@@ -1,0 +1,63 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+    <div class="post-detail-container">
+        <div class="post-detail-header">
+            <a href="{% url 'profile' post.author.username %}" class="post-link" >
+            <div class="post-detail-user-info">
+                <div class="post-detail-profile-picture">
+                    <img src="{{post.author.profile.pfp.url}}" alt="User Profile Picture">
+                </div>
+                <div class="post-detail-username">{{post.author.username}}</div>
+            </div>
+            </a>
+            <h2 class="post-detail-title">  {{post.title}} </h2>
+        </div>
+        <div class="post-detail-content">
+            <p class="post-detail-content">{{post.content|linebreaksbr}}</p>
+            {% if post.image %}
+            <img class="post-detail-image" src="{{post.image.url}}" alt="Post Image">
+            {% endif %}
+        </div>
+        <hr>
+        <div class="post-detail-actions">
+            {% if post.author == user %}
+            <a class="post-detail-delete-button" href="{% url 'delete-post' post.id %}">Delete</a>
+            <a class="post-detail-update-button" href="{% url 'update-post' post.id %}">Update</a>
+            {% endif %}
+        </div>
+
+        <div class="comment-section">
+            <h3>Comments</h3>
+            
+            <form method="POST" class="comment-form">
+                {% csrf_token %}
+                {{ commentForm.as_p }}
+                <button type="submit" class="comment-button">Comment</button>
+            </form>
+            
+            <div class="comments">
+                {% for comment in comments %}
+                <a class="comment">
+                    <hr>
+                    <a href="{% url 'profile' comment.author.username %}" class="post-link" >
+                    <div class="comment-user-info">
+                        <div class="comment-profile-picture">
+                            <img src="{{comment.author.profile.pfp.url}}" alt="Comment User Profile Picture">
+                        </div>
+                        <div class="comment-username">{{comment.author.username}}</div>
+                    </div>
+                    </a>
+                    <p class="comment-content">{{comment.comment|linebreaks}}</p>
+                    <div class="comment-detail-actions">
+                        {% if comment.author == user %}
+                        <a class="comment-detail-delete-button" href="/">Delete</a>
+                        <a class="comment-detail-update-button" href="/">Update</a>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

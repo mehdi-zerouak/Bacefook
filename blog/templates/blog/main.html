@@ -1,0 +1,30 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+
+{% for post in posts %}
+<div class="post-container">
+    <div class="post-header">
+        <a href="{% url 'profile' post.author.username %}" class="post-link" >
+            <div class="user-info">
+                <div class="profile-picture">
+                    <img src="{{post.author.profile.pfp.url}}" alt="User Profile Picture">
+                </div>
+                <div class="username">{{post.author.username}}</div>
+            </div>
+        </a>
+    <a href="{% url 'post' post.id %}" class="post-link" >
+        <h2 class="post-title">{{post.title}}</h2>
+    </div>
+        <div class="post-content">
+            <p class="content">{{post.content|linebreaksbr}}</p>
+            {% if post.image %}
+            <img class="post-image" src="{{post.image.url}}" alt="Post Image">
+            {% endif %}
+        </div>
+    </a>
+</div>
+{% endfor %}
+
+{% endblock content %}

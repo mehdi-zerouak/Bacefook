@@ -1,0 +1,12 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+    <div class="add-post-container">
+        <h2>Update Post</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="add-post-button">Update</button>
+        </form>
+    </div>
+{% endblock %}
