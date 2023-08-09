@@ -372,8 +372,7 @@ body {
         margin-top: 10px;
     }
     
-    .comment-detail-delete-button,
-    .comment-detail-update-button {
+    .comment-detail-delete-button {
             background-color: #623737;
             color: white;
             border: none;
@@ -385,8 +384,40 @@ body {
             text-decoration: none; 
         }
 
-    .comment-detail-delete-button:hover,
-    .comment-detail-update-button:hover {
+    .comment-detail-delete-button:hover {
         background-color: #FF3333; 
     }
     
+/* upvote stuff for posts */
+.upvote-button {
+    background-color: #4949494e; 
+    color: rgb(255, 255, 255);
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-weight: bold;
+    font-size: large;
+}
+
+.remove-upvote-button {
+    background-color: #49494947; 
+    color: rgb(165, 15, 15);
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-weight: bold;
+    font-size: large;
+}
+
+.upvote-button:hover {
+    background-color: #FFAA00; 
+}
+
+.upvote-count {
+    color: rgb(0, 0, 0);
+    font-size: 14px;
+}

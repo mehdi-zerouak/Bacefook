@@ -1,4 +1,5 @@
 {% extends 'blog/base.html' %}
+{% load liked_template %}
 
 {% block content %}
 
@@ -24,6 +25,16 @@
             {% endif %}
         </div>
     </a>
+    <hr>
+    {% if post|liked:request.user %}
+    <a class="remove-upvote-button post-link" href="{% url 'delete-like' post.id %}">⇧</a>
+    <span class="upvote-count" >{{post.liked_by.count}}</span>
+    {% else %}
+    <a class="upvote-button post-link" href="{% url 'add-like' post.id %}">⇧</a>
+    <span class="upvote-count" >{{post.liked_by.count}}</span>
+    {% endif %}
+    <a class="upvote-button post-link" href="{% url 'post' post.id %}">✉</a>
+    <span class="upvote-count" > {{post.comments.count}} </span>
 </div>
 {% endfor %}
 

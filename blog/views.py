@@ -1,9 +1,9 @@
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.shortcuts import render , redirect
-from .models import Post , Comment
+from .models import Post , Comment 
 from .forms import CommentForm , PostForm
-from django.views.generic import ListView , DetailView , CreateView , UpdateView , DeleteView
+from django.views.generic import ListView , CreateView , UpdateView 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 
@@ -50,7 +50,10 @@ class UpdatePost(LoginRequiredMixin , UpdateView):
     model = Post
     template_name = 'blog/update-post.html'
     form_class = PostForm
-    success_url = reverse_lazy('main')
+
+    def get_success_url(self):
+        post_id = self.kwargs['pk']
+        return reverse_lazy('post' , kwargs={'pk':post_id})
 
     def get_queryset(self):
         return super().get_queryset().filter(author=self.request.user)
@@ -61,3 +64,28 @@ def deletePost(request , pk):
     post = user_posts.get(id=pk)
     post.delete()
     return redirect('main')
+
+@login_required
+def deleteComment(request , pk):
+    user_comments = Comment.objects.filter(author=request.user)
+    comment = user_comments.get(id=pk)
+    post = comment.related_post
+    comment.delete()
+    return HttpResponseRedirect(reverse_lazy('post' , kwargs={'pk':post.id})) 
+
+@login_required
+def addLike(request , pk):
+    post = Post.objects.get(id=pk)
+    user = request.user
+    post.liked_by.add(user)
+    post.save()
+    return redirect('main')
+
+@login_required
+def deleteLike(request , pk):
+    post = Post.objects.get(id=pk)
+    user = request.user
+    post.liked_by.remove(user)
+    post.save()
+    return redirect('main')
+    

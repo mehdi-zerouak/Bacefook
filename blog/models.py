@@ -9,6 +9,7 @@ class Post(models.Model):
     content = models.CharField(max_length=3000 )
     image = models.ImageField(upload_to='posts-images' , blank=True , null=True)
     date_posted = models.DateTimeField(auto_now_add=True)
+    liked_by = models.ManyToManyField(User, related_name='likes')
 
     def __str__(self):
         return f'{self.title} by {self.author.username}'
@@ -28,3 +29,4 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'{self.author} comment on {self.related_post}'
+    

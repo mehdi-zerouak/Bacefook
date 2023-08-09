@@ -49,12 +49,11 @@
                     </div>
                     </a>
                     <p class="comment-content">{{comment.comment|linebreaks}}</p>
+                    {% if comment.author == user %}
                     <div class="comment-detail-actions">
-                        {% if comment.author == user %}
-                        <a class="comment-detail-delete-button" href="/">Delete</a>
-                        <a class="comment-detail-update-button" href="/">Update</a>
-                        {% endif %}
+                        <a class="comment-detail-delete-button" href="{% url 'delete-comment' comment.id %}">Delete</a>
                     </div>
+                    {% endif %}
                 </div>
                 {% endfor %}
             </div>
