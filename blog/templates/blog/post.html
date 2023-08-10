@@ -55,7 +55,7 @@
             
             <div class="comments">
                 {% for comment in comments %}
-                <a class="comment">
+                <div class="comment">
                     <hr>
                     <a href="{% url 'profile' comment.author.username %}" class="post-link" >
                     <div class="comment-user-info">
