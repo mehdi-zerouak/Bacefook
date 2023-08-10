@@ -111,7 +111,7 @@ body {
 
 .profile-details .bio {
     font-size: 14px;
-    color: #3f3e3e;
+    color: #343434;
 }
 
 /* posts in main */
@@ -141,9 +141,9 @@ body {
     background-color: #9d101043;
 }
 
-.profile-picture img {
-    width: 30px;
-    height: 30px;
+.post-profile-picture img {
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
     object-fit: cover;
     margin-right: 5px;
@@ -230,7 +230,7 @@ body {
     margin-top: 10px;
 }
 
-.post-detail-actions {
+.post-detail-actions , .profile-detail-actions {
     display: flex;
     justify-content: flex-end;
     margin-top: 10px;
@@ -238,7 +238,8 @@ body {
 
 .post-detail-delete-button,
 .post-detail-update-button,
-.post-detail-comment-button {
+.post-detail-comment-button,
+.profile-update-button {
         background-color: #FF6666;
         color: white;
         border: none;
@@ -250,13 +251,19 @@ body {
         text-decoration: none; 
     }
 
-    .post-detail-update-button {
+.post-detail-update-button {
         background-color: #FFCC00;
     }
 
+.profile-update-button {
+    background-color: #c90202;
+    
+}
+
 
     .post-detail-delete-button:hover,
-    .post-detail-update-button:hover{
+    .post-detail-update-button:hover,
+    .profile-update-button:hover {
         background-color: #FF3333; 
     }
 
@@ -419,5 +426,72 @@ body {
 
 .upvote-count {
     color: rgb(0, 0, 0);
+    font-size: 14px;
+}
+
+/* user posts in his profile */
+
+.profile-content-h3 {
+    margin-top: 30px;
+    margin-left: 20px;
+    color: rgb(198, 0, 0);
+    display: inline-block;
+}
+
+.profile-content-h3:hover {
+    color: rgba(198, 0, 0, 0.475);
+}
+
+.profile-user-posts {
+    margin-top: 20px;
+}
+
+.profile-post {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.profile-post-picture {
+    width: 130px;
+    height: 130px;
+    object-fit: cover;
+    margin-right: 10px;
+    border-radius: 4px;
+}
+
+.profile-post-content {
+    flex: 1;
+}
+
+.profile-post-user-info {
+    display: flex;
+    align-items: center;
+    color: black;
+}
+
+.profile-post-user-picture {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.profile-post-username {
+    font-weight: bold;
+}
+
+.profile-post-text {
+    margin-top: 5px;
+    color: black;
+}
+
+.profile-post-stats {
+    margin-top: 10px;
+    color: rgb(155, 2, 2);
     font-size: 14px;
 }

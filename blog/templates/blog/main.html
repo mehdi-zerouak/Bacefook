@@ -9,7 +9,7 @@
     <div class="post-header">
         <a href="{% url 'profile' post.author.username %}" class="post-link" >
             <div class="user-info">
-                <div class="profile-picture">
+                <div class="post-profile-picture">
                     <img src="{{post.author.profile.pfp.url}}" alt="User Profile Picture">
                 </div>
                 <div class="username">{{post.author.username}}</div>
@@ -26,11 +26,12 @@
         </div>
     </a>
     <hr>
+
     {% if post|liked:request.user %}
-    <a class="remove-upvote-button post-link" href="{% url 'delete-like' post.id %}">⇧</a>
+    <a class="remove-upvote-button post-link" href="{% url 'delete-like' post.id %}"  >⇧</a>
     <span class="upvote-count" >{{post.liked_by.count}}</span>
     {% else %}
-    <a class="upvote-button post-link" href="{% url 'add-like' post.id %}">⇧</a>
+    <a class="upvote-button post-link" href="{% url 'add-like' post.id %}" >⇧</a>
     <span class="upvote-count" >{{post.liked_by.count}}</span>
     {% endif %}
     <a class="upvote-button post-link" href="{% url 'post' post.id %}">✉</a>

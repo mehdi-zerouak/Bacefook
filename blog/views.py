@@ -79,7 +79,9 @@ def addLike(request , pk):
     user = request.user
     post.liked_by.add(user)
     post.save()
-    return redirect('main')
+    prv_url = request.META.get('HTTP_REFERER', None)
+    return redirect(prv_url)
+
 
 @login_required
 def deleteLike(request , pk):
@@ -87,5 +89,6 @@ def deleteLike(request , pk):
     user = request.user
     post.liked_by.remove(user)
     post.save()
-    return redirect('main')
+    prv_url = request.META.get('HTTP_REFERER', None)
+    return redirect(prv_url)
     

@@ -1,24 +1,41 @@
 {% extends "blog/base.html" %}
+{% load liked_template %}
 
 {% block content %}
     <div class="post-detail-container">
+
         <div class="post-detail-header">
+
             <a href="{% url 'profile' post.author.username %}" class="post-link" >
             <div class="post-detail-user-info">
+
                 <div class="post-detail-profile-picture">
                     <img src="{{post.author.profile.pfp.url}}" alt="User Profile Picture">
                 </div>
+
                 <div class="post-detail-username">{{post.author.username}}</div>
+
             </div>
             </a>
             <h2 class="post-detail-title">  {{post.title}} </h2>
-        </div>
+
+    </div>
+
         <div class="post-detail-content">
             <p class="post-detail-content">{{post.content|linebreaksbr}}</p>
             {% if post.image %}
             <img class="post-detail-image" src="{{post.image.url}}" alt="Post Image">
             {% endif %}
         </div>
+        <br>
+
+        {% if post|liked:request.user %}
+        <a class="remove-upvote-button post-link" href="{% url 'delete-like' post.id %}" >⇧</a>
+        <span class="upvote-count" >{{post.liked_by.count}}</span>
+        {% else %}
+        <a class="upvote-button post-link" href="{% url 'add-like' post.id %}" >⇧</a>
+        <span class="upvote-count" >{{post.liked_by.count}}</span>
+        {% endif %}
         <hr>
         <div class="post-detail-actions">
             {% if post.author == user %}

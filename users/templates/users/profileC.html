@@ -1,5 +1,7 @@
 {% extends 'blog/base.html' %}
 
+{% comment %} same as profile.html but with the user comments with same post styling {% endcomment %}
+
 {% block content %}
 <div class="profile-container">
     <div class="profile-picture">
@@ -19,30 +21,22 @@
 <a href="{% url 'profile' profile.user.username %}" class="post-link"><h3 class="profile-content-h3">Posts</h3></a>
 <a href="{% url 'profile-C' profile.user.username %}" class="post-link"><h3 class="profile-content-h3">Comments</h3></a>
 
-{% for post in user_posts %}
+{% for comment in user_comments %}
 <div class="profile-user-posts">
-    <a href="{% url 'post' post.id %}" class="post-link">
+    <a href="{% url 'post' comment.related_post.id %}" class="post-link">
     <div class="profile-post">
-        {% if post.image %}
-        <img src="{{post.image.url}}" alt="Post Image" class="profile-post-picture">
-        {% endif %}
         <div class="profile-post-content">
             <div class="profile-post-user-info">
-                <img src="{{post.author.profile.pfp.url}}" alt="User Profile Picture" class="profile-post-user-picture">
-                <span class="profile-post-username">{{post.author.username}}</span>
+                <h4>{{comment.related_post.title }} --- {{comment.related_post.author}}</h4>
             </div>
-            <p class="profile-post-text">{{post.content}}</p>
-            <div class="profile-post-stats">
-                <span class="profile-post-likes">{{post.liked_by.count}} ⇧</span>
-                <span class="profile-post-comments">{{post.comments.count}} ✉</span>
-            </div>
+            <p class="profile-post-text">{{comment.comment}}</p>
         </div>
     </div>
     </a>
 </div>
 {% empty %}
 <div class="profile-user-posts">
-    <h3>No Posts</h3>
+    <h3>No Comments</h3>
 </div>
 {% endfor %}
 
