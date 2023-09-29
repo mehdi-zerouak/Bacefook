@@ -8,3 +8,8 @@ class ProfileForm(forms.ModelForm):
         widgets = {
             'bio':forms.Textarea(attrs={'rows':10, 'cols':70})
             }
+
+class ChangePasswordForm(forms.Form):
+    old_password = forms.CharField(max_length=60 , widget=forms.PasswordInput())
+    new_password = forms.CharField(max_length=60 , widget=forms.PasswordInput())
+    confirm_new_password = forms.CharField(max_length=60 , widget=forms.PasswordInput())

@@ -1,12 +1,14 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render , redirect
 from django.urls import reverse_lazy
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import LoginView
 from django.views.generic import CreateView  , UpdateView
 from .models import Profile
-from .forms import ProfileForm
+from .forms import ProfileForm , ChangePasswordForm
 
 
 # Create your views here.
@@ -69,3 +71,29 @@ class UpdateProfile(UpdateView):
 
     def get_queryset(self):
         return super().get_queryset().filter(user=self.request.user)
+
+@login_required
+def ChangePassword(request):
+    user = request.user
+    context = {'form':ChangePasswordForm}
+
+    if request.method == 'POST':
+        #checking if old password matches
+        old_password_correct = user.check_password(request.POST['old_password'])
+        
+        if old_password_correct:
+            new_password = request.POST['new_password']
+            confirm_new_password = request.POST['confirm_new_password']
+            if new_password == confirm_new_password:
+                user.set_password(new_password)
+                user.save()
+                messages.success(request, 'Your Password have been changed')
+                return redirect('login')
+            else:
+                messages.warning(request , 'Unmatched passwords')
+                return redirect('change-password')
+        else:
+            messages.warning(request, "old password didn't match")
+            return redirect('change-password')
+
+    return render(request, 'users/change-password.html' , context)

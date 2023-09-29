@@ -21,7 +21,7 @@ class Main(LoginRequiredMixin , ListView):
 @login_required
 def postDetail(request , pk):
     post = Post.objects.get(id=pk)
-
+    #comment form
     if request.method == 'POST':
         comment = Comment()
         new_comment = request.POST['comment']
@@ -79,6 +79,7 @@ def addLike(request , pk):
     user = request.user
     post.liked_by.add(user)
     post.save()
+    # request.META.get('HTTP_REFERER', None) gives u the url that the request came from
     prv_url = request.META.get('HTTP_REFERER', None)
     return redirect(prv_url)
 
